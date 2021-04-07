@@ -1,0 +1,20 @@
+{
+  "name": "SmartFrameAPI",
+  "version": "1.0.0",
+  "description": "API to deal with data for the Smart Frame",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dannyhodge/SmartFrameAPI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dannyhodge/SmartFrameAPI/issues"
+  },
+  "homepage": "https://github.com/dannyhodge/SmartFrameAPI#readme"
+}
