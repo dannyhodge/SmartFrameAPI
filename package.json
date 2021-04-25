@@ -1,9 +1,11 @@
 {
-  "name": "SmartFrameAPI",
+  "name": "smartframeapi",
   "version": "1.0.0",
   "description": "API to deal with data for the Smart Frame",
   "main": "index.js",
   "scripts": {
+    "start": "node index",
+    "dev": "nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +18,16 @@
   "bugs": {
     "url": "https://github.com/dannyhodge/SmartFrameAPI/issues"
   },
-  "homepage": "https://github.com/dannyhodge/SmartFrameAPI#readme"
+  "homepage": "https://github.com/dannyhodge/SmartFrameAPI#readme",
+  "dependencies": {
+    "@google-cloud/storage": "^5.8.4",
+    "express": "^4.17.1",
+    "multer": "^1.4.2",
+    "pg": "^6.4.2",
+    "pg-promise": "^10.10.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
 }
