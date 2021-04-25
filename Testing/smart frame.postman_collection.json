@@ -1,0 +1,53 @@
+{
+	"info": {
+		"_postman_id": "0d536040-00f5-44ec-aa35-ec878a421aa8",
+		"name": "smart frame",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get all images",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localapi}}/images",
+					"host": [
+						"{{localapi}}"
+					],
+					"path": [
+						"images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"type": "file",
+							"src": "/C:/Users/dan_t/Pictures/me.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{localapi}}/newimage",
+					"host": [
+						"{{localapi}}"
+					],
+					"path": [
+						"newimage"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
