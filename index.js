@@ -7,7 +7,6 @@ const multer = require("multer");
 const upload = multer();
 
 const port = process.env.PORT || 3002;
-// Create multer object
 
 const { Storage } = require("@google-cloud/storage");
 
@@ -82,9 +81,6 @@ const uploadFile = async () => {
   storage
     .bucket(bucketName)
     .upload(localFilename, options, function (err, file) {
-      // Your bucket now contains:
-      // - "new-image.png" (with the contents of `local-image.png')
-      // `file` is an instance of a File object that refers to your new file.
     });
 
   console.log("Filename: ", filename);
