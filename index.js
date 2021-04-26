@@ -4,6 +4,7 @@ const app = express();
 const fs = require("fs");
 const v4 = require("uuid");
 const multer = require("multer");
+const cors = require('cors')
 const upload = multer();
 
 const port = process.env.PORT || 3002;
@@ -20,7 +21,13 @@ const connectionString =
 let bucketName = "gs://smart-frame-f6933.appspot.com";
 let localFilename = "images/image.png";
 
-app.get("/images", (req, res) => {
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+app.get("/images", cors(), (req, res) => {
   pg.connect(connectionString, function (err, client, done) {
     client.query(
       "SELECT image_location FROM smartframe.images",
@@ -38,11 +45,11 @@ app.get("/images", (req, res) => {
             .then((signedUrl) => {
               rows.push({ signedUrl, location });
               itemsProcessed++;
-              if (itemsProcessed == result.rows.length) res.send(rows);
+              if (itemsProcessed == result.rows.length) res.send(rows); 
             });
         });
 
-        if (err) return console.error(err);
+        if (err) return console.error(err); 
       }
     );
   });
@@ -50,6 +57,7 @@ app.get("/images", (req, res) => {
 
 app.post("/newimage", upload.any(), (req, res) => {
   console.log("POST /newimage/");
+  if(req.files == null) res.status(500).send("incorrect input");
   console.log("Files: ", req.files);
   fs.writeFile("./images/image.png", req.files[0].buffer, (err) => {
     if (err) {
