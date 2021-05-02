@@ -27,7 +27,7 @@ var connectionString;
 filename = "./connectionstring.txt";
 
 production == true
-  ? connectionString = JSON.parse(process.env.CONNECTION_STRING)
+  ? connectionString = process.env.CONNECTION_STRING
   : fs.readFile(filename, "utf8", function (err, data) {
     if (err) throw err;
     connectionString = data;
