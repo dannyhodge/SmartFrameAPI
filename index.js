@@ -15,8 +15,13 @@ const storage = new Storage({
   keyFilename: "E:\\Development\\Keyfile\\keyfile.json",
 });
 
-const connectionString =
-  "postgres://suujehnkqbduna:8f80889d7a183ef9e0dd59d2c619e5bd9c4851981a1f13c4cb508135e53f6af1@ec2-34-255-134-200.eu-west-1.compute.amazonaws.com:5432/d3scsfgsbd5m4r?ssl=true";
+var connectionString;
+
+  filename = './connectionstring.txt';
+  fs.readFile(filename, 'utf8', function(err, data) {
+    if (err) throw err;
+    connectionString = data;
+  });
 
 let bucketName = "gs://smart-frame-f6933.appspot.com";
 let localFilename = "images/image.png";
@@ -58,24 +63,19 @@ app.get("/images", cors(), (req, res) => {
 app.post("/newimage", upload.any(), (req, res) => {
   console.log("POST /newimage/");
   if(req.files == null) res.status(500).send("incorrect input");
-  console.log("Files: ", req.files);
   fs.writeFile("./images/image.png", req.files[0].buffer, (err) => {
     if (err) {
       console.log("Error: ", err);
       res.status(500).send("An error occurred: " + err.message);
     } else {
       uploadFile();
-
       res.status(200).send("ok");
     }
   });
 });
 
 const uploadFile = async () => {
-  // Uploads a local file to the bucket
-
   var filename = "" + v4.v4() + ".png";
-
   const options = {
     destination: filename,
     resumable: true,
@@ -91,8 +91,6 @@ const uploadFile = async () => {
     .upload(localFilename, options, function (err, file) {
     });
 
-  console.log("Filename: ", filename);
-  console.log("Filenametype: ", typeof filename);
   pg.connect(connectionString, function (err, client, done) {
     client.query(
       `INSERT INTO smartframe.images (image_location) VALUES ('${filename}')`,
